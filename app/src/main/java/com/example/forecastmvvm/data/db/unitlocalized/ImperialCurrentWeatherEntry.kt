@@ -6,9 +6,9 @@ data class ImperialCurrentWeatherEntry (
     @ColumnInfo(name = "temperature")
     override val temperature: Double,
     @ColumnInfo(name = "weatherDescriptions")
-    override val conditionText: List<String>,
+    override val conditionText: ArrayList<String>,
     @ColumnInfo(name = "weatherIcons")
-    override val conditionIconUrl: List<String>,
+    override val conditionIconUrl: ArrayList<String>,
     @ColumnInfo(name = "windSpeed")
     override val windSpeed: Double,
     @ColumnInfo(name = "windDir")
