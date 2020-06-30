@@ -25,6 +25,7 @@ class ForecastRepositoryImpl(
     override suspend fun getCurrentWeather(metric: Boolean): LiveData<out UnitSpecificCurrentWeatherEntry> {
         return withContext(Dispatchers.IO){
             initWeatherData()
+            println(currentWeatherDao.getWeather().value)
             return@withContext currentWeatherDao.getWeather()
         }
     }
@@ -33,6 +34,7 @@ class ForecastRepositoryImpl(
 
     private fun persistFetchedCurrentWeather(fetchedWeather: CurrentWeatherResponse){
         GlobalScope.launch(Dispatchers.IO) {
+            println(fetchedWeather.currentWeatherEntry)
             currentWeatherDao.upsert(fetchedWeather.currentWeatherEntry)
         }
     }

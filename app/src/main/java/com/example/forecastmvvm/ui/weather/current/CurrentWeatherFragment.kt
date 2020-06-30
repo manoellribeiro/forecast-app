@@ -12,19 +12,22 @@ import com.example.forecastmvvm.R
 import com.example.forecastmvvm.data.network.ApixuWeatherApiService
 import com.example.forecastmvvm.data.network.ConnectivityInterceptorImpl
 import com.example.forecastmvvm.data.network.WeatherNetworkDataSourceImpl
+import com.example.forecastmvvm.ui.base.ScopedFragment
 import kotlinx.android.synthetic.main.curent_weather_fragment.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import org.kodein.di.Kodein
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.closestKodein
+import org.kodein.di.generic.instance
 
-class CurrentWeatherFragment : Fragment() {
+class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
 
-    companion object {
-        fun newInstance() =
-            CurrentWeatherFragment()
-    }
+    override val kodein by closestKodein()
+    private val viewModelFactory: CurrentWeatherViewModelFactory by instance()
 
-    private lateinit var viewModel: CurentWeatherViewModel
+    private lateinit var viewModel: CurrentWeatherViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,19 +38,18 @@ class CurrentWeatherFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(CurentWeatherViewModel::class.java)
-        // TODO: Use the ViewModel
-        val apiService =
-            ApixuWeatherApiService(ConnectivityInterceptorImpl(this.requireContext()))
-        val weatherNetworkDataSource = WeatherNetworkDataSourceImpl(apiService)
+        viewModel = ViewModelProviders.of(this, viewModelFactory)
+            .get(CurrentWeatherViewModel::class.java)
 
-        weatherNetworkDataSource.downloadedCurrentWeather.observe(viewLifecycleOwner, Observer {
+        bindUI()
+    }
+
+    private fun bindUI() = launch{
+        val currentWeather = viewModel.weather.await()
+        currentWeather.observe(viewLifecycleOwner, Observer {
+            if (it == null) return@Observer
             textView.text = it.toString()
         })
-
-        GlobalScope.launch(Dispatchers.Main){
-            weatherNetworkDataSource.fetchCurrentWeather("Salvador")
-        }
     }
 
 }
