@@ -6,12 +6,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 
 import com.example.forecastmvvm.R
 import com.example.forecastmvvm.data.network.ApixuWeatherApiService
 import com.example.forecastmvvm.data.network.ConnectivityInterceptorImpl
 import com.example.forecastmvvm.data.network.WeatherNetworkDataSourceImpl
+import com.example.forecastmvvm.databinding.CurentWeatherFragmentBinding
+import com.example.forecastmvvm.internal.glide.GlideApp
 import com.example.forecastmvvm.ui.base.ScopedFragment
 import kotlinx.android.synthetic.main.curent_weather_fragment.*
 import kotlinx.coroutines.Dispatchers
@@ -33,7 +36,8 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.curent_weather_fragment, container, false)
+        val binding: CurentWeatherFragmentBinding = DataBindingUtil.inflate(inflater, R.layout.curent_weather_fragment, container, false)
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -48,7 +52,10 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
         val currentWeather = viewModel.weather.await()
         currentWeather.observe(viewLifecycleOwner, Observer {
             if (it == null) return@Observer
-            textView.text = it.toString()
+            group_loading.visibility = View.GONE
+            GlideApp.with(this@CurrentWeatherFragment)
+                .load("http:${it.conditionIconUrl}")
+                .into(imageView_condition_icon)
         })
     }
 
