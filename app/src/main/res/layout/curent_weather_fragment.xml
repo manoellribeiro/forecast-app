@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="viewModel"
+            type="com.example.forecastmvvm.ui.weather.current.CurrentWeatherViewModel"
+            />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -22,7 +31,9 @@
             android:layout_marginEnd="8dp"
             app:constraint_referenced_ids="progressBar_loading, textView_loading"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="@{viewModel.weather == null ? View.VISIBLE : View.INVISIBLE}"
+            />
 
         <ProgressBar
             android:id="@+id/progressBar_loading"
@@ -36,7 +47,10 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="@{viewModel.weather == null ? View.VISIBLE : View.INVISIBLE}"
+
+            />
 
         <TextView
             android:id="@+id/textView_loading"
@@ -69,10 +83,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.017"
-            tools:text="Patchy rain possible" />
+            tools:text="Patchy rain possible"
+            android:visibility="@{viewModel.weather == null ? View.INVISIBLE : View.VISIBLE}"
+            />
 
         <ImageView
             android:id="@+id/imageView_condition_icon"
+            android:visibility="@{viewModel.weather == null ? View.INVISIBLE : View.VISIBLE}"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
@@ -104,7 +121,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/imageView_condition_icon"
             app:layout_constraintVertical_bias="1.0"
-            tools:text="25.0°C" />
+            tools:text="25.0°C"
+            android:visibility="@{viewModel.weather == null ? View.INVISIBLE : View.VISIBLE}"
+            />
 
         <TextView
             android:id="@+id/textView_feels_like_temperature"
@@ -119,7 +138,9 @@
             app:layout_constraintStart_toStartOf="@+id/textView_temperature"
             app:layout_constraintTop_toBottomOf="@+id/textView_temperature"
             app:layout_constraintVertical_bias="0.0"
-            tools:text="Feels like 20.4°C" />
+            tools:text="Feels like 20.4°C"
+            android:visibility="@{viewModel.weather == null ? View.INVISIBLE : View.VISIBLE}"
+            />
 
         <TextView
             android:id="@+id/textView_wind"
@@ -136,7 +157,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.542"
-            tools:text="Wind: SE, 5.3 m/s" />
+            tools:text="Wind: SE, 5.3 m/s"
+            android:visibility="@{viewModel.weather == null ? View.INVISIBLE : View.VISIBLE}"
+            />
 
         <TextView
             android:id="@+id/textView_precipitation"
@@ -153,7 +176,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView_wind"
             app:layout_constraintVertical_bias="0.0"
-            tools:text="Precipitation: 5 mm" />
+            tools:text="Precipitation: 5 mm"
+            android:visibility="@{viewModel.weather == null ? View.INVISIBLE : View.VISIBLE}"
+            />
 
         <TextView
             android:id="@+id/textView_visibility"
@@ -170,6 +195,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView_precipitation"
             app:layout_constraintVertical_bias="0.0"
-            tools:text="Visibility: 20 km" />
+            tools:text="Visibility: 20 km"
+            android:visibility="@{viewModel.weather == null ? View.INVISIBLE : View.VISIBLE}"
+            />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

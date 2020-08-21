@@ -37,26 +37,9 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
         savedInstanceState: Bundle?
     ): View? {
         val binding: CurentWeatherFragmentBinding = DataBindingUtil.inflate(inflater, R.layout.curent_weather_fragment, container, false)
+        binding.lifecycleOwner = this
+        binding.viewModel = ViewModelProviders.of(this, viewModelFactory)
+            .get(CurrentWeatherViewModel::class.java)
         return binding.root
     }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this, viewModelFactory)
-            .get(CurrentWeatherViewModel::class.java)
-
-        bindUI()
-    }
-
-    private fun bindUI() = launch{
-        val currentWeather = viewModel.weather.await()
-        currentWeather.observe(viewLifecycleOwner, Observer {
-            if (it == null) return@Observer
-            group_loading.visibility = View.GONE
-            GlideApp.with(this@CurrentWeatherFragment)
-                .load("http:${it.conditionIconUrl}")
-                .into(imageView_condition_icon)
-        })
-    }
-
 }
