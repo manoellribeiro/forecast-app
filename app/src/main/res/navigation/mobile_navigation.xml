@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/curentWeatherFragment">
+    app:startDestination="@id/currentWeatherFragment">
 
     <fragment
-        android:id="@+id/curentWeatherFragment"
+        android:id="@+id/currentWeatherFragment"
         android:name="com.example.forecastmvvm.ui.weather.current.CurrentWeatherFragment"
-        android:label="curent_weather_fragment"
-        tools:layout="@layout/curent_weather_fragment" />
+        android:label="current_weather_fragment"
+        tools:layout="@layout/current_weather_fragment" />
     <fragment
         android:id="@+id/futureListWeatherFragment"
         android:name="com.example.forecastmvvm.ui.weather.future.list.FutureListWeatherFragment"

@@ -24,7 +24,7 @@ class ConnectivityInterceptorImpl(
     private fun isOnline(): Boolean {
         val connectivityManager = appContext.getSystemService(Context.CONNECTIVITY_SERVICE)
         as ConnectivityManager
-        var network: Network = connectivityManager.activeNetwork
+        var network: Network? = connectivityManager.activeNetwork
         var networkCapabilities: NetworkCapabilities = connectivityManager.getNetworkCapabilities(network)
             ?: return false  //Elvis operator to check if it is null
         return true
