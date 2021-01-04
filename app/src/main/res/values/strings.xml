@@ -2,4 +2,13 @@
     <string name="app_name">Forecast MVVM</string>
     <string name="loading">Loading</string>
     <string name="today">Today</string>
+    <string name="weatherLocation">Weather Location</string>
+    <string name="useDeviceLocation">Use device location</string>
+    <string name="useDeviceLocationSummary">Allow the app to get your location</string>
+    <string name="location">Location</string>
+    <string name="locationSummary">The location for which the weather is fetched</string>
+    <string name="locationDefaultValue">Feira de Santana</string>
+    <string name="units">Units</string>
+    <string name="unitSystem">Unit System</string>
+    <string name="settings">Settings</string>
 </resources>
