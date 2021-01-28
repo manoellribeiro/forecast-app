@@ -16,6 +16,7 @@ import com.example.forecastmvvm.data.db.utils.Converters
 @TypeConverters(Converters::class)
 abstract class ForecastDatabase : RoomDatabase() {
     abstract fun currentWeatherDao(): CurrentWeatherDao
+    abstract fun futureWeatherDao(): FutureWeatherDao
     abstract fun weatherLocationDao(): WeatherLocationDao
 
     companion object {

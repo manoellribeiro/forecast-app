@@ -78,8 +78,10 @@ class LocationProviderImpl(
     private fun getLastDeviceLocation(): Deferred<Location?> {
         return if(hasLocationPermission())
             fusedLocationProviderClient.lastLocation.asDeferred()
-        else
+        else {
             throw LocationPermissionNotGrantedException()
+        }
+
     }
 
     private fun hasLocationPermission(): Boolean {
