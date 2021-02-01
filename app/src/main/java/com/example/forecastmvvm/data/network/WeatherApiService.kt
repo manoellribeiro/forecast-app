@@ -34,7 +34,7 @@ interface WeatherApiService {
                     .url()
                     .newBuilder()
                     .addQueryParameter("key",
-                        APIXU_API_KEY
+                        WEATHER_API_KEY
                     )
                     .build()
                 val request = chain.request()

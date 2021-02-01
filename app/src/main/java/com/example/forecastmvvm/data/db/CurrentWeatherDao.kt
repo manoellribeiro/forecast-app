@@ -7,7 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.forecastmvvm.data.db.entity.CURRENT_WEATHER_ID
 import com.example.forecastmvvm.data.db.entity.CurrentWeatherEntry
-import com.example.forecastmvvm.data.db.unitlocalized.ImperialCurrentWeatherEntry
+import com.example.forecastmvvm.data.db.unitlocalized.CurrentWeatherEntry as UnitLocalizedCurrentWeather
 
 @Dao
 interface CurrentWeatherDao {
@@ -15,5 +15,5 @@ interface CurrentWeatherDao {
     fun upsert(weatherEntry: CurrentWeatherEntry)
 
     @Query("select * from current_weather where id = 0")
-    fun getWeather(): LiveData<ImperialCurrentWeatherEntry>
+    fun getWeather(): LiveData<UnitLocalizedCurrentWeather>
 }

@@ -17,9 +17,9 @@ data class Day(
     @SerializedName("daily_chance_of_snow")
     val dailyChanceOfSnow: String,
     @SerializedName("daily_will_it_rain")
-    val dailyWillItRain: Int,
+    val dailyWillItRain: Double,
     @SerializedName("daily_will_it_snow")
-    val dailyWillItSnow: Int,
+    val dailyWillItSnow: Double,
     @SerializedName("maxtemp_c")
     val maxtempC: Double,
     @SerializedName("maxwind_kph")
