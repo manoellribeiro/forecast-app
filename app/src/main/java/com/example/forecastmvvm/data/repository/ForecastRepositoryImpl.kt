@@ -6,6 +6,7 @@ import com.example.forecastmvvm.data.db.FutureWeatherDao
 import com.example.forecastmvvm.data.db.WeatherLocationDao
 import com.example.forecastmvvm.data.db.entity.WeatherLocation
 import com.example.forecastmvvm.data.db.unitlocalized.CurrentWeatherEntry
+import com.example.forecastmvvm.data.db.unitlocalized.DetailFutureWeatherEntry
 import com.example.forecastmvvm.data.db.unitlocalized.SimpleFutureWeatherEntry
 import com.example.forecastmvvm.data.network.FORECAST_DAYS_COUNT
 import com.example.forecastmvvm.data.network.WeatherNetworkDataSource
@@ -49,6 +50,13 @@ class ForecastRepositoryImpl(
         return withContext(Dispatchers.IO) {
             initWeatherData()
             return@withContext futureWeatherDao.getSimpleWeatherForecast(startDate)
+        }
+    }
+
+    override suspend fun getFutureWeatherByDate(date: LocalDate): LiveData<out DetailFutureWeatherEntry> {
+        return withContext(Dispatchers.IO) {
+            initWeatherData()
+            return@withContext futureWeatherDao.getDetailedWeatherByDate(date)
         }
     }
 

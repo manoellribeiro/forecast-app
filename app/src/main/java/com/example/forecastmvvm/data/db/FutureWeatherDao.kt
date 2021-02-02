@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.forecastmvvm.data.db.entity.FutureWeatherEntry
+import com.example.forecastmvvm.data.db.unitlocalized.DetailFutureWeatherEntry
 import com.example.forecastmvvm.data.db.unitlocalized.SimpleFutureWeatherEntry
 import java.time.LocalDate
 
@@ -16,6 +17,9 @@ interface FutureWeatherDao {
 
     @Query("select * from future_weather where date(date) >= date(:startDate)")
     fun getSimpleWeatherForecast(startDate: LocalDate): LiveData<List<SimpleFutureWeatherEntry>>
+
+    @Query("select * from future_weather where date(date) = date(:date)")
+    fun getDetailedWeatherByDate(date: LocalDate): LiveData<DetailFutureWeatherEntry>
 
     @Query("select count(id) from future_weather where date(date) >= date(:startDate)")
     fun countFutureWeather(startDate: LocalDate): Int
