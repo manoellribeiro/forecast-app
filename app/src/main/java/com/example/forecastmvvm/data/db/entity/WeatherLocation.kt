@@ -17,12 +17,10 @@ data class WeatherLocation(
     val region: String,
     val lat: Double,
     val lon: Double,
-    @SerializedName("timezone_id")
+    @SerializedName("timezone_id", alternate = ["tz_id"])
     val timezoneId: String,
     @SerializedName("localtime_epoch")
-    val localtimeEpoch: Long,
-    @SerializedName("utc_offset")
-    val utcOffset: String
+    val localtimeEpoch: Long
 ) {
     @PrimaryKey(autoGenerate = false)
     var id : Int = WEATHER_LOCATION_ID
